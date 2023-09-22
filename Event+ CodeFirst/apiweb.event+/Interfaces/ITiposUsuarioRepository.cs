@@ -5,9 +5,9 @@ namespace apiweb.event_.Interfaces
     public interface ITiposUsuarioRepository
     {
         void Cadastrar(TiposUsuario tipoUsuario);
-        void Deletar(Guid Id);
+        void Deletar(Guid id);
         List<TiposUsuario> Listar();
-        TiposUsuario BuscarPorId(Guid Id);
-        void Atualizar(Guid Id, TiposUsuario tipoUsuario);
+        TiposUsuario BuscarPorId(Guid id);
+        void Atualizar(Guid id, TiposUsuario tipoUsuario);
     }
 }
