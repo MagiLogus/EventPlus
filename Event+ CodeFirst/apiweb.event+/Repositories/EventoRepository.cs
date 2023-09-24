@@ -1,6 +1,7 @@
 ﻿using apiweb.event_.Contexts;
 using apiweb.event_.Domains;
 using apiweb.event_.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace apiweb.event_.Repositories
 {
@@ -14,12 +15,22 @@ namespace apiweb.event_.Repositories
         }
         public void Atualizar(Guid id, Evento evento)
         {
-            throw new NotImplementedException();
+            Evento eventoBuscado = _eventContext.Evento.Find(id)!;
+            if (eventoBuscado != null)
+            {
+                eventoBuscado!.DataEvento = evento.DataEvento;
+                eventoBuscado!.NomeEvento = evento.NomeEvento;
+                eventoBuscado!.Descricao = evento.Descricao;
+                eventoBuscado!.IdTipoEvento = evento.IdTipoEvento;  
+                eventoBuscado!.IdInstituicao = evento.IdInstituicao;
+            }
+            _eventContext.Evento.Update(eventoBuscado);
+            _eventContext.SaveChanges();
         }
 
         public Evento BuscarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            return _eventContext.Evento.FirstOrDefault(e => e.IdEvento == id)!;
         }
 
         public void Cadastrar(Evento evento)
@@ -30,12 +41,13 @@ namespace apiweb.event_.Repositories
 
         public void Deletar(Guid id)
         {
-            throw new NotImplementedException();
+            _eventContext.Evento.Where(e => e.IdEvento == id).ExecuteDelete();
+            _eventContext.SaveChanges();
         }
 
         public List<Evento> Listar()
         {
-            throw new NotImplementedException();
+            return _eventContext.Evento.ToList();
         }
     }
 }

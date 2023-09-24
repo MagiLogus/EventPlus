@@ -12,8 +12,8 @@ using apiweb.event_.Contexts;
 namespace apiweb.event_.Migrations
 {
     [DbContext(typeof(EventContext))]
-    [Migration("20230919112932_BD_V1")]
-    partial class BD_V1
+    [Migration("20230923024352_BDv1")]
+    partial class BDv1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

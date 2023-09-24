@@ -1,6 +1,7 @@
 ﻿using apiweb.event_.Domains;
 using apiweb.event_.Interfaces;
 using apiweb.event_.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace apiweb.event_.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Post(TiposUsuario tipousuario)
         {
             try
@@ -32,6 +34,7 @@ namespace apiweb.event_.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Delete(Guid id)
         {
             try
@@ -46,6 +49,7 @@ namespace apiweb.event_.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrador, Aluno")]
         public IActionResult Get()
         {
             try
@@ -59,6 +63,7 @@ namespace apiweb.event_.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult GetById(Guid id)
         {
             try
@@ -73,6 +78,7 @@ namespace apiweb.event_.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Put(Guid id, TiposUsuario tipoUsuario)
         {
             try

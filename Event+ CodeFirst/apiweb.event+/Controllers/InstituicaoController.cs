@@ -1,6 +1,7 @@
 ﻿using apiweb.event_.Domains;
 using apiweb.event_.Interfaces;
 using apiweb.event_.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace apiweb.event_.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [Authorize(Roles = "Administrador")]
     public class InstituicaoController : ControllerBase
     {
         private IInstituicaoRepository _instituicaoRepository;
@@ -32,4 +34,5 @@ namespace apiweb.event_.Controllers
         }
 
     }
+
 }

@@ -1,6 +1,7 @@
 ﻿using apiweb.event_.Contexts;
 using apiweb.event_.Domains;
 using apiweb.event_.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace apiweb.event_.Repositories
 {
@@ -14,7 +15,7 @@ namespace apiweb.event_.Repositories
         }
         public ComentariosEvento BuscarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            return _eventContext.ComentariosEvento.FirstOrDefault(e => e.IdComentarioEvento == id)!;
         }
 
         public void Cadastrar(ComentariosEvento comentarioEvento)
@@ -25,12 +26,13 @@ namespace apiweb.event_.Repositories
 
         public void Deletar(Guid id)
         {
-            throw new NotImplementedException();
+            _eventContext.ComentariosEvento.Where(e => e.IdComentarioEvento == id).ExecuteDelete();
+            _eventContext.SaveChanges();
         }
 
         public List<ComentariosEvento> Listar()
         {
-            throw new NotImplementedException();
+            return _eventContext.ComentariosEvento.ToList();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using apiweb.event_.Domains;
 using apiweb.event_.Interfaces;
 using apiweb.event_.Repositories;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace apiweb.event_.Controllers
@@ -18,6 +18,7 @@ namespace apiweb.event_.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Post(Usuario usuario)
         {
             try
@@ -31,5 +32,21 @@ namespace apiweb.event_.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Administrador")]
+        public IActionResult GetById(Guid id)
+        {
+            try
+            {
+                return Ok(_usuarioRepository.BuscarPorId(id));
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
+
     }
+
 }

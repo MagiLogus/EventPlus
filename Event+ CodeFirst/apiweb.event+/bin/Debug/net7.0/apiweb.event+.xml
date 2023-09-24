@@ -4,16 +4,16 @@
         <name>apiweb.event+</name>
     </assembly>
     <members>
-        <member name="T:apiweb.event_.Migrations.BD_V1">
+        <member name="T:apiweb.event_.Migrations.BDv1">
             <inheritdoc />
         </member>
-        <member name="M:apiweb.event_.Migrations.BD_V1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:apiweb.event_.Migrations.BDv1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:apiweb.event_.Migrations.BD_V1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+        <member name="M:apiweb.event_.Migrations.BDv1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:apiweb.event_.Migrations.BD_V1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+        <member name="M:apiweb.event_.Migrations.BDv1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
     </members>

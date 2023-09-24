@@ -15,7 +15,7 @@ namespace apiweb.event_.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=NOTE19-S15; initial catalog=Event+; user Id=sa; pwd=Senai@134; TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-N33B0CD\\SQLEXPRESS; initial catalog=Event+; user Id=sa; pwd=sa@134; TrustServerCertificate=true;");
             base.OnConfiguring(optionsBuilder);
         }
 

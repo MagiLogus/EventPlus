@@ -17,7 +17,21 @@ namespace apiweb.event_.Repositories
         {
             try
             {
-                Usuario usuarioBuscado = _eventContext.Usuario.FirstOrDefault(u => u.Email == email)!;
+                Usuario usuarioBuscado = _eventContext.Usuario
+                    .Select(u => new Usuario
+                    {
+                        IdUsuario = u.IdUsuario,
+                        Nome = u.Nome,
+                        Senha = u.Senha,
+                        Email = u.Email,
+                        IdTipoUsuario = u.IdTipoUsuario,
+                        TiposUsuario = new TiposUsuario
+                        {
+                            IdTipoUsuario = u.IdTipoUsuario,
+                            Titulo = u.TiposUsuario!.Titulo
+                        }
+                    }).FirstOrDefault(u => u.Email == email)!;
+
                 if (usuarioBuscado != null)
                 {
                     bool confere = Criptografia.CompararHash(senha, usuarioBuscado.Senha!);
@@ -73,7 +87,6 @@ namespace apiweb.event_.Repositories
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
