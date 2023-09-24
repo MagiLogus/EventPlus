@@ -24,7 +24,7 @@ namespace apiweb.event_.Controllers
             try
             {
                 _usuarioRepository.Cadastrar(usuario);
-                return StatusCode(201);
+                return StatusCode(201,usuario);
             }
             catch (Exception e)
             {

@@ -22,13 +22,13 @@ namespace apiweb.event_.Repositories
                     {
                         IdUsuario = u.IdUsuario,
                         Nome = u.Nome,
-                        Senha = u.Senha,
                         Email = u.Email,
-                        IdTipoUsuario = u.IdTipoUsuario,
-                        TiposUsuario = new TiposUsuario
+                        Senha = u.Senha,
+
+                        TipoUsuario = new TiposUsuario
                         {
-                            IdTipoUsuario = u.IdTipoUsuario,
-                            Titulo = u.TiposUsuario!.Titulo
+                         IdTipoUsuario = u.IdTipoUsuario,
+                         Titulo = u.TipoUsuario!.Titulo
                         }
                     }).FirstOrDefault(u => u.Email == email)!;
 
@@ -58,10 +58,12 @@ namespace apiweb.event_.Repositories
                     {
                         IdUsuario = u.IdUsuario,
                         Nome = u.Nome,
-                        TiposUsuario = new TiposUsuario
+                        Email = u.Email,
+                        Senha = u.Senha,
+
+                        TipoUsuario = new TiposUsuario
                         {
-                            IdTipoUsuario = u.IdTipoUsuario,
-                            Titulo = u.TiposUsuario!.Titulo
+                            Titulo = u.TipoUsuario!.Titulo
                         }
                     }).FirstOrDefault(u => u.IdUsuario == id)!;
 

@@ -1,12 +1,20 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using System.Reflection;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+        .AddNewtonsoftJson(options =>
+        {
+            // Ignora os loopings nas consultas
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            // Ignora valores nulos ao fazer junções nas consultas
+            options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+        }
+    );
 
 //Adiciona serviço de Jwt Bearer (forma de autenticação)
 builder.Services.AddAuthentication(options =>
@@ -29,10 +37,10 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
 
         //forma de criptografia e valida a chave de autenticação
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("projeto-event-webapi-chave-autenticacao")),
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("event-plus-plus-plus-pluas-plus-plus-plus")),
 
         //valida o tempo de expiração do token
-        ClockSkew = TimeSpan.FromMinutes(5),
+        ClockSkew = TimeSpan.FromMinutes(10),
 
         //nome do issuer (de onde está vindo)
         ValidIssuer = "apiweb.event+",
@@ -60,7 +68,6 @@ builder.Services.AddSwaggerGen(options =>
             Url = new Uri("https://github.com/MagiLogus")
         }
     });
-
 
     //Configura o Swagger para usar o arquivo XML gerado
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -93,6 +100,18 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 //Habilite o middleware para atender ao documento JSON gerado e à interface do usuário do Swagger
@@ -109,11 +128,13 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = string.Empty;
 });
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

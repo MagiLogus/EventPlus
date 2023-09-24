@@ -183,7 +183,7 @@ namespace apiweb.event_.Migrations
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasMaxLength(60)
-                        .HasColumnType("CHAR(60)");
+                        .HasColumnType("VARCHAR(60)");
 
                     b.HasKey("IdUsuario");
 

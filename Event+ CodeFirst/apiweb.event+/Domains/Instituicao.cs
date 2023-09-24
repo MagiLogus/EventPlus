@@ -11,7 +11,7 @@ namespace apiweb.event_.Domains
         [Key]
         public Guid IdInstituicao { get; set; } = Guid.NewGuid();
 
-        [Column(TypeName = "CHAR(14)")]
+        [Column(TypeName = "VARCHAR(14)")]
         [Required(ErrorMessage = "Numero de CNPJ obrigatorio!")]
         [StringLength(14)]
         public string? CNPJ { get; set; }

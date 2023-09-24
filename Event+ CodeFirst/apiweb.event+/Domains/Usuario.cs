@@ -20,7 +20,7 @@ namespace apiweb.event_.Domains
         [Required(ErrorMessage = "Email do usuario obrigatorio!")]
         public string? Email { get; set; }
 
-        [Column(TypeName = "CHAR(60)")]
+        [Column(TypeName = "VARCHAR(60)")]
         [Required(ErrorMessage = "Senha do usuario obrigatoria!")]
         [StringLength(60, MinimumLength = 6, ErrorMessage = "A senha deve conter de 6 a 60 caracteres")]
         public string? Senha { get; set; }
@@ -30,7 +30,7 @@ namespace apiweb.event_.Domains
         public Guid IdTipoUsuario { get; set; }
 
         [ForeignKey(nameof(IdTipoUsuario))]
-        public TiposUsuario? TiposUsuario { get; set; }
+        public TiposUsuario? TipoUsuario { get; set; }
 
     }
 }

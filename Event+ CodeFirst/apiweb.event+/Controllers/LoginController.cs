@@ -27,24 +27,24 @@ namespace apiweb.event_.Controllers
         {
             try
             {
-                Usuario usuarioBuscado = _usuarioRepository.BuscarPorEmailESenha(usuario.Email, usuario.Senha);
-                if (usuarioBuscado != null)
+                Usuario usuarioBuscado = _usuarioRepository.BuscarPorEmailESenha(usuario.Email!, usuario.Senha!);
+
+                if (usuarioBuscado == null)
                 {
-                    return NotFound("Email ou senha inválidos!");
+                    return StatusCode(401, "Email ou senha inválidos!");
                 }
 
                 //Caso encontre o usuario, prossegue para criação do token
 
                 var claims = new[]
                 {
-                        new Claim(JwtRegisteredClaimNames.Jti,usuarioBuscado.IdUsuario.ToString()),
-                        new Claim("IdTiposUsuario",usuarioBuscado.IdTipoUsuario.ToString()),
-                        new Claim(JwtRegisteredClaimNames.Name,usuarioBuscado.Nome),
-                        new Claim(JwtRegisteredClaimNames.Email,usuarioBuscado.Email),
-                        new Claim(ClaimTypes.Role,usuarioBuscado.TiposUsuario.Titulo)
+                    new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email!),
+                    new Claim(JwtRegisteredClaimNames.Name,usuarioBuscado.Nome!),
+                    new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.IdUsuario.ToString()),
+                    new Claim(ClaimTypes.Role, usuarioBuscado.TipoUsuario!.Titulo!),
                 };
 
-                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("apiweb-event+"));
+                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("event-plus-plus-plus-pluas-plus-plus-plus"));
 
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -71,9 +71,9 @@ namespace apiweb.event_.Controllers
                     token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
             }
-            catch (Exception erro)
+            catch (Exception error)
             {
-                return BadRequest(erro.Message);
+                return BadRequest(error.Message);
             }
         }
 
